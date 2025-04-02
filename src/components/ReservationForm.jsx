@@ -36,7 +36,7 @@ class ReservationForm extends Component {
     //usiamo le funzioni freccia per evitare un uso scorretto di this
     e.preventDefault()
     console.log("funziona, tra poco faccio la fetch")
-    fetch("https://striveschool-api.com/api/reservation", {
+    fetch("https://striveschool-api.herokuapp.com/api/reservation", {
       method: "POST",
       body: JSON.stringify(this.state.reservation),
       headers: {
