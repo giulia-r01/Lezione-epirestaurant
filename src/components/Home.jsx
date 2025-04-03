@@ -19,9 +19,9 @@ class Home extends Component {
           <Col xs={12} md={8} lg={6} className="text-center">
             <Carousel
               onSlide={(i) => {
-                console.log("funziona?", i) // i è l'indice della slide che sta arrivando e della pasta
+                //console.log("funziona?", i) // i è l'indice della slide che sta arrivando e della pasta
                 // che sta per comparire, perché genero le slides a partire dalle paste
-                console.log(pastasciutte[i])
+                //console.log(pastasciutte[i])
                 // dovrei settare pastasciutte[i] come nuova activePasta
                 // c'è un metodo apposito per cambiare lo stao di un componente
                 this.setState({
