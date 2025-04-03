@@ -1,19 +1,26 @@
 // recupera la lista delle prenotazioni esistenti a db e di presentarle all'utente
 //avverrà quindi un caricamento all'avvio della pagina e quando la chiamata get sarà terminata verranno create dinamicamente le righe della nostra lista
 import { Component } from "react"
-import { Container, Row, Col, ListGroup } from "react-bootstrap"
-
+import {
+  Container,
+  Row,
+  Col,
+  ListGroup,
+  Button,
+  Spinner,
+} from "react-bootstrap"
+const URL = "https://striveschool-api.herokuapp.com/api/reservation"
 class Backoffice extends Component {
   //definiamo lo stato iniziale
 
   state = {
     reservations: [], // ospiterà l'elenco delle prenotazioni che arriveranno dalla chiamata GET
+    isLoading: true,
   }
 
   getReservations = () => {
     //questa funzione dovrà recuperare le prenotazioni a db tramite una fetch GET e salvarle all'interno di reservations nello state
 
-    const URL = "https://striveschool-api.herokuapp.com/api/reservation"
     fetch(URL)
       .then((response) => {
         if (response.ok) {
@@ -26,10 +33,14 @@ class Backoffice extends Component {
         console.log("Prenotazioni", data)
         this.setState({
           reservations: data,
+          isLoading: false,
         })
       })
       .catch((err) => {
         console.log("errore", err)
+        this.setState({
+          isLoading: false,
+        })
       })
   }
 
@@ -40,6 +51,23 @@ class Backoffice extends Component {
     // componentDiMount viene invocato UNA VOLTA SOLA per lifecycle
     // viene eseguito subito dopo la prima invocazione di render()
     this.getReservations()
+  }
+
+  deleteReservation = (idToDelete) => {
+    fetch(URL + "/" + idToDelete, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert("elemento eliminato")
+          this.getReservations() //aggiorno il DOM
+        } else {
+          throw new Error("elemento non eliminato")
+        }
+      })
+      .catch((err) => {
+        console.log("Errore", err)
+      })
   }
 
   // STEP DEL CICLO DI VITA DI BACKOFFICE.JSX
@@ -62,11 +90,39 @@ class Backoffice extends Component {
         <Row className="justify-content-center my-5">
           <Col xs={12} md={8} lg={6}>
             <h2>Prenotazioni esistenti</h2>
+            <div className="text-center my-3">
+              <Button variant="success" onClick={this.getReservations}>
+                Aggiorna!
+              </Button>
+            </div>
+
+            {this.state.isLoading && (
+              <div className="text-center my-3">
+                <Spinner variant="primary" animation="border" />
+              </div>
+            )}
+
             <ListGroup>
               {this.state.reservations.map((reservationObject) => {
                 return (
-                  <ListGroup.Item key={reservationObject._id}>
-                    {reservationObject.name}
+                  <ListGroup.Item
+                    key={reservationObject._id}
+                    className="d-flex justify-content-between"
+                  >
+                    <div>
+                      {reservationObject.name} per{""}{" "}
+                      {reservationObject.numberOfPeople}
+                    </div>
+                    <div>
+                      <Button
+                        variant="danger"
+                        onClick={() => {
+                          this.deleteReservation(reservationObject._id)
+                        }}
+                      >
+                        <i className="bi bi-trash-fill"></i>
+                      </Button>
+                    </div>
                   </ListGroup.Item>
                 )
               })}
