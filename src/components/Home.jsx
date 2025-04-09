@@ -14,7 +14,7 @@ const Home = function () {
         </Col>
       </Row>
       <Row className="justify-content-center">
-        <Col xs={12} md={8} lg={6} className="text-center">
+        <Col xs={12} md={8} lg={4} className="text-center">
           <Carousel
             onSlide={(i) => {
               //console.log("funziona?", i) // i è l'indice della slide che sta arrivando e della pasta
@@ -46,8 +46,8 @@ const Home = function () {
           </Carousel>
         </Col>
       </Row>
-      <Row className="justify-content-center">
-        <Col xs={12} md={8} lg={6} className="text-center">
+      <Row className="justify-content-center mb-5">
+        <Col xs={12} md={8} lg={4} className="text-center">
           <ListGroup>
             {activePasta.comments.map((recensione) => {
               return (

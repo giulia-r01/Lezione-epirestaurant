@@ -1,6 +1,9 @@
 import { Navbar, Container, Nav } from "react-bootstrap"
+import { Link, useLocation } from "react-router-dom"
 
 const CustomNavbar = function (props) {
+  const location = useLocation()
+
   return (
     <Navbar
       collapseOnSelect
@@ -9,13 +12,38 @@ const CustomNavbar = function (props) {
       data-bs-theme={props.tema}
     >
       <Container fluid>
-        <Navbar.Brand href="#home">Epistaurant</Navbar.Brand>
+        <Link className="navbar-brand" to="/index">
+          Epistaurant
+        </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ms-auto">
-            <Nav.Link href="#features">Menu</Nav.Link>
-            <Nav.Link href="#pricing">Prenota</Nav.Link>
-            <Nav.Link href="#pricing">Amministrazione</Nav.Link>
+            <Link
+              className={
+                location.pathname === "/menu" ? "nav-link active" : "nav-link"
+              }
+              to="/menu"
+            >
+              Menu
+            </Link>
+            <Link
+              className={
+                location.pathname === "/prenota"
+                  ? "nav-link active"
+                  : "nav-link"
+              }
+              to="/prenota"
+            >
+              Prenota
+            </Link>
+            <Link
+              className={
+                location.pathname === "/admin" ? "nav-link active" : "nav-link"
+              }
+              to="/admin"
+            >
+              Amministrazione
+            </Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

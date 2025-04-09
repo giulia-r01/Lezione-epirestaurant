@@ -103,8 +103,8 @@ const Backoffice = function () {
   return (
     <Container>
       <Row className="justify-content-center my-5">
-        <Col xs={12} md={8} lg={6}>
-          <h2>Prenotazioni esistenti</h2>
+        <Col xs={12} md={8} lg={4}>
+          <h2 className="text-center">Prenotazioni esistenti</h2>
           <div className="text-center my-3">
             <Button
               variant="warning"

@@ -86,6 +86,7 @@ const ReservationForm = function () {
 
   return (
     <Container>
+      <h2 className="my-3 text-center">Prenota il tuo tavolo ORA!</h2>
       <Form onSubmit={handleSubmit}>
         {/* ho collegato al submit del form*/}
         <Row className="justify-content-center">
